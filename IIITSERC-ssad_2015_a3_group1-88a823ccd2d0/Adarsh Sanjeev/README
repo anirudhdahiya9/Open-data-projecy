@@ -1,0 +1,20 @@
+###############################################################################
+#  Documentation                                                              #
+###############################################################################
+
+Pygame was used to make this game. To run the game simply run main.pyusing
+ python 2.7. The controls are:
+
+W / ^  : left
+A / <- : Climb up
+S / -> : Right
+D / V  : Climb down
+SPC    : Jump
+Q      : Quit
+R      : Reset
+
+The game screen was drawn using only rectangle objects from pygame.
+As the levels increase, there is an increase in difficulty for every
+five levels in game.
+
+Each level and coins are randomised, and all object oriented concepts have been used.

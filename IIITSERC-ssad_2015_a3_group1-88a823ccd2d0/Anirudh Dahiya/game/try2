@@ -1,0 +1,28 @@
+def getchar():
+        import tty
+        import termios
+        import sys
+        ch=''
+        fd = sys.stdin.fileno()
+        old_settings = termios.tcgetattr(fd)
+        try:
+                tty.setraw(sys.stdin.fileno())
+                ch=sys.stdin.read(1)
+        finally:
+                termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+                return ch
+import time
+from threading import Thread
+
+answer = None
+
+def check():
+    	time.sleep(2)
+    	if answer != None:
+        	print answer
+		return
+    	print "Too Slow"
+
+Thread(target = check).start()
+
+answer = getchar()

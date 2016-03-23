@@ -1,0 +1,41 @@
+import signal
+def getchar():
+        import tty
+	import termios
+	import sys
+	ch=''
+        fd = sys.stdin.fileno()
+        old_settings = termios.tcgetattr(fd)
+        try:
+                tty.setraw(sys.stdin.fileno())
+                ch=sys.stdin.read(1)
+        finally:
+                termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+                return ch
+
+class AlarmException(Exception):
+	pass
+
+def alarmHandler(signum, frame):
+	raise AlarmException
+
+def nput(prompt='', timeout=1):
+	signal.signal(signal.SIGALRM, alarmHandler)
+	signal.alarm(timeout)
+	try:
+		text = getchar()
+		signal.alarm(0)
+		print text
+		return text
+	except AlarmException:
+		print '\nPrompt timeout. Continuing...'
+	signal.signal(signal.SIGALRM, signal.SIG_IGN)
+	return ''
+mv=''
+from time import sleep
+while mv!='q':
+	mv=nput()
+	if mv=='':
+		print 'hi'
+	else:
+		sleep(0.5)
